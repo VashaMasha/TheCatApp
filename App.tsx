@@ -8,16 +8,20 @@
 
 import React from 'react';
 import {persistor, store} from './src/store/store';
-import BreedScreen from './src/components/BreedsScreen';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
 import FullScreenLoader from './src/components/FullScreenLoader';
+import {NavigationContainer} from '@react-navigation/native';
+import {navigationRef} from './router/index';
+import MainStackNavigator from './router/MainStackNavigator';
 
 const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <BreedScreen />
+        <NavigationContainer ref={navigationRef}>
+          <MainStackNavigator />
+        </NavigationContainer>
       </PersistGate>
       <FullScreenLoader />
     </Provider>

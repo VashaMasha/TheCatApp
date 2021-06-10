@@ -5,31 +5,17 @@ import {
   Image,
   StyleSheet,
   Text,
-  SafeAreaView,
+  Pressable,
 } from 'react-native';
 import {getCats} from '..//api';
 import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
 import {useDispatch} from 'react-redux';
 
-const CatItemList = (item: any) => {
-  const catItem = item.item;
-
-  return (
-    <SafeAreaView style={styles.itemContainer}>
-      <Image source={catItem.image} style={styles.image}></Image>
-      <View style={styles.textContainer}>
-        <Text style={styles.headerText}>{catItem.name}</Text>
-        <Text
-          numberOfLines={2}
-          ellipsizeMode="tail"
-          style={styles.descriptionText}>
-          {catItem.description}
-        </Text>
-      </View>
-    </SafeAreaView>
-  );
+type BreedScreenProps = {
+  navigation: any;
 };
-const BreedScreen = () => {
+
+const BreedScreen = ({navigation}: BreedScreenProps) => {
   const [catsArray, setCatsArray] = useState([]);
   const dispatch = useDispatch();
 
@@ -41,11 +27,30 @@ const BreedScreen = () => {
       .finally(() => dispatch(toggle_app_loading(false)));
   }, []);
 
+  const onCatPress = (item: any) => {
+    navigation.navigate('OneCat');
+  };
+
   return (
     <FlatList
       data={catsArray}
       keyExtractor={item => item.id}
-      renderItem={({item}) => <CatItemList item={item} />}
+      renderItem={({item}) => (
+        <Pressable
+          style={styles.itemContainer}
+          onPress={() => onCatPress(item)}>
+          <Image source={item.image} style={styles.image}></Image>
+          <View style={styles.textContainer}>
+            <Text style={styles.headerText}>{item.name}</Text>
+            <Text
+              numberOfLines={2}
+              ellipsizeMode="tail"
+              style={styles.descriptionText}>
+              {item.description}
+            </Text>
+          </View>
+        </Pressable>
+      )}
     />
   );
 };
