@@ -1,12 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, Image, StyleSheet, Text} from 'react-native';
+import {
+  View,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  SafeAreaView,
+} from 'react-native';
 import {getCats} from '..//api';
+import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
+import {useDispatch} from 'react-redux';
 
 const CatItemList = (item: any) => {
   const catItem = item.item;
 
   return (
-    <View style={styles.itemContainer}>
+    <SafeAreaView style={styles.itemContainer}>
       <Image source={catItem.image} style={styles.image}></Image>
       <View style={styles.textContainer}>
         <Text style={styles.headerText}>{catItem.name}</Text>
@@ -17,16 +26,19 @@ const CatItemList = (item: any) => {
           {catItem.description}
         </Text>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 const BreedScreen = () => {
   const [catsArray, setCatsArray] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(toggle_app_loading(true));
     getCats()
       .then((res: any) => setCatsArray(res))
-      .catch((err: any) => console.log(err));
+      .catch((err: any) => console.log(err))
+      .finally(() => dispatch(toggle_app_loading(false)));
   }, []);
 
   return (

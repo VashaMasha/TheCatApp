@@ -7,13 +7,20 @@
  */
 
 import React from 'react';
-import {SafeAreaView} from 'react-native';
+import {persistor, store} from './src/store/store';
 import BreedScreen from './src/components/BreedsScreen';
+import {PersistGate} from 'redux-persist/integration/react';
+import {Provider} from 'react-redux';
+import FullScreenLoader from './src/components/FullScreenLoader';
 
 const App = () => {
   return (
-    <BreedScreen/>
-  
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BreedScreen />
+      </PersistGate>
+      <FullScreenLoader />
+    </Provider>
   );
 };
 
