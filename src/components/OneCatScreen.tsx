@@ -7,7 +7,7 @@ import {
   Dimensions,
   Pressable,
 } from 'react-native';
-import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
+import {toggle_app_loading, add_to_favorites} from '../store/actionCreators/appActionCreators';
 import {useDispatch} from 'react-redux';
 import ScreenWrapper from '../theme/ScreenWrapper';
 
@@ -38,7 +38,7 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
         <Pressable style={[styles.button, {marginRight: 20}]}>
           <Text style={styles.buttonText}>Другое фото</Text>
         </Pressable>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={() => dispatch(add_to_favorites(catItem.image))}>
           <Text style={styles.buttonText}>Добавить в избранное</Text>
         </Pressable>
       </View>
