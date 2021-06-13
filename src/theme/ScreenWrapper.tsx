@@ -14,13 +14,11 @@ const ScreenWrapper = ({...props}: ScreenWrapperProps) => {
   return (
     <SafeAreaView style={styles.container}>
       {props.showBackButton && (
-        <View style={styles.iconContainer}>
-          <Pressable
-            style={styles.backButton}
-            onPress={() => navigation.goBack()}>
-            <Image source={BackIcon}></Image>
-          </Pressable>
-        </View>
+        <Pressable
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}>
+          <Image source={BackIcon} style={styles.icon}></Image>
+        </Pressable>
       )}
       {props.children}
     </SafeAreaView>
@@ -30,17 +28,17 @@ const ScreenWrapper = ({...props}: ScreenWrapperProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 20,
   },
-  iconContainer: {
+  backButton: {
     height: 44,
     width: 44,
     marginBottom: 10,
     borderColor: 'white',
     borderRadius: 30,
     backgroundColor: 'white',
+    marginHorizontal: 20,
   },
-  backButton: {
+  icon: {
     alignSelf: 'center',
     marginTop: 15,
   },

@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 5,
     backgroundColor: 'white',
+    marginHorizontal: 20,
   },
   image: {
     marginRight: 10,

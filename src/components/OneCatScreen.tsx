@@ -22,31 +22,37 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
 
   return (
     <ScreenWrapper showBackButton>
-      <View style={styles.imageContainer}>
-        <Image source={catItem.image} style={styles.image}></Image>
-      </View>
-      <View style={styles.dataContainer}>
-        <Text style={styles.breedText}>{catItem.name}</Text>
-        <Text
-          numberOfLines={2}
-          ellipsizeMode="tail"
-          style={styles.descriptionText}>
-          {catItem.description}
-        </Text>
-      </View>
-      <View style={styles.buttonsContainer}>
-        <Pressable style={[styles.button, {marginRight: 20}]}>
-          <Text style={styles.buttonText}>Другое фото</Text>
-        </Pressable>
-        <Pressable style={styles.button} onPress={() => dispatch(add_to_favorites(catItem.image))}>
-          <Text style={styles.buttonText}>Добавить в избранное</Text>
-        </Pressable>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image source={catItem.image} style={styles.image}></Image>
+        </View>
+        <View style={styles.dataContainer}>
+          <Text style={styles.breedText}>{catItem.name}</Text>
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={styles.descriptionText}>
+            {catItem.description}
+          </Text>
+        </View>
+        <View style={styles.buttonsContainer}>
+          <Pressable style={[styles.button, {marginRight: 20}]}>
+            <Text style={styles.buttonText}>Другое фото</Text>
+          </Pressable>
+          <Pressable style={styles.button} onPress={() => dispatch(add_to_favorites(catItem.image))}>
+            <Text style={styles.buttonText}>Добавить в избранное</Text>
+          </Pressable>
+        </View>
       </View>
     </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginHorizontal: 20,
+  },
   dataContainer: {
     flex: 1,
     justifyContent: 'space-around',
