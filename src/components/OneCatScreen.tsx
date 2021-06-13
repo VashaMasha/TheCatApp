@@ -4,12 +4,12 @@ import {
   Image,
   StyleSheet,
   Text,
-  SafeAreaView,
   Dimensions,
   Pressable,
 } from 'react-native';
 import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
 import {useDispatch} from 'react-redux';
+import ScreenWrapper from '../theme/ScreenWrapper';
 
 type OneCatScreenProps = {
   route: any;
@@ -21,7 +21,7 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
   const {catItem} = route.params;
 
   return (
-    <SafeAreaView style={styles.catContainer}>
+    <ScreenWrapper showBackButton>
       <View style={styles.imageContainer}>
         <Image source={catItem.image} style={styles.image}></Image>
       </View>
@@ -42,15 +42,11 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
           <Text style={styles.buttonText}>Добавить в избранное</Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
-  catContainer: {
-    flex: 1,
-    marginHorizontal: 20,
-  },
   dataContainer: {
     flex: 1,
     justifyContent: 'space-around',
@@ -59,13 +55,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     height: width,
     width: width,
-    borderRadius: 10,
+    borderRadius: 16,
   },
   imageContainer: {
     marginVertical: 10,
     borderColor: 'white',
-    borderRadius: 10,
-    shadowColor: '#9370DA',
+    borderRadius: 16,
+    shadowColor: '#5533EA',
     shadowOffset: {
       width: 6,
       height: 6,
@@ -76,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   breedText: {
-    fontSize: 20,
+    fontSize: 16,
     marginBottom: 10,
     fontWeight: 'bold',
     alignSelf: 'flex-start',
@@ -91,14 +87,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   button: {
-    borderRadius: 20,
+    borderRadius: 12,
     borderColor: 'white',
     backgroundColor: 'white',
     padding: 12,
   },
   buttonText: {
+    fontSize: 14,
     textAlign: 'center',
-    color: '#9370DA',
+    color: '#5533EA',
     fontWeight: 'bold',
   },
 });

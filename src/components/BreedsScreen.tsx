@@ -10,6 +10,7 @@ import {
 import {getCats} from '..//api';
 import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
 import {useDispatch} from 'react-redux';
+import ScreenWrapper from '../theme/ScreenWrapper';
 
 type BreedScreenProps = {
   navigation: any;
@@ -32,39 +33,40 @@ const BreedScreen = ({navigation}: BreedScreenProps) => {
   };
 
   return (
-    <FlatList
-      data={catsArray}
-      keyExtractor={item => item.id}
-      renderItem={({item}) => (
-        <Pressable
-          style={styles.itemContainer}
-          onPress={() => onCatPress({image: item.image, name: item.name,  description: item.description})}>
-          <Image source={item.image} style={styles.image}></Image>
-          <View style={styles.textContainer}>
-            <Text style={styles.breedText}>{item.name}</Text>
-            <Text
-              numberOfLines={2}
-              ellipsizeMode="tail"
-              style={styles.descriptionText}>
-              {item.description}
-            </Text>
-          </View>
-        </Pressable>
-      )}
-    />
+    <ScreenWrapper>
+      <FlatList
+        data={catsArray}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => (
+          <Pressable
+            style={styles.itemContainer}
+            onPress={() => onCatPress({image: item.image, name: item.name,  description: item.description})}>
+            <Image source={item.image} style={styles.image}></Image>
+            <View style={styles.textContainer}>
+              <Text style={styles.breedText}>{item.name}</Text>
+              <Text
+                numberOfLines={2}
+                ellipsizeMode="tail"
+                style={styles.descriptionText}>
+                {item.description}
+              </Text>
+            </View>
+          </Pressable>
+        )}
+      />
+    </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   itemContainer: {
     flexDirection: 'row',
-    marginHorizontal: 20,
     marginVertical: 10,
     padding: 10,
     borderColor: 'white',
-    borderRadius: 10,
+    borderRadius: 16,
     borderWidth: 1,
-    shadowColor: '#9370DA',
+    shadowColor: '#5533EA',
     shadowOffset: {
       width: 6,
       height: 6,
