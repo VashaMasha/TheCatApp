@@ -3,21 +3,19 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import OneCatScreen from '../src/components/OneCatScreen';
-import BottomTabNavigator from './BottomTabNavigator';
+import FavouritesScreen from '../src/components/BreedsScreen';
 
 const Stack = createStackNavigator();
 const defaultOptions: StackNavigationOptions = {
   headerShown: false,
 };
 
-export const MainStackNavigator = () => {
+export const FavouritesStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={defaultOptions}>
-      <Stack.Screen name="Breeds" component={BottomTabNavigator} />
-      <Stack.Screen name="OneCat" component={OneCatScreen} />
+      <Stack.Screen name="Favourites" component={FavouritesScreen} />
     </Stack.Navigator>
   );
 };
 
-export default MainStackNavigator;
+export default FavouritesStackNavigator;

@@ -22,7 +22,7 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
   const {catItem} = route.params;
   const [cat, setCat] = useState(catItem);
 
-  const getPhotoPressed = () => {
+  const showAnotherPressed = () => {
     dispatch(toggle_app_loading(true));
     getCats()
       .then((res: any) => {
@@ -61,7 +61,7 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
         <View style={styles.buttonsContainer}>
           <Pressable
             style={[styles.button, {marginRight: 20}]}
-            onPress={getPhotoPressed}>
+            onPress={showAnotherPressed}>
             <Text style={styles.buttonText}>Показать другую кошку</Text>
           </Pressable>
           <Pressable style={styles.button} onPress={addToFavoritesPressed}>
