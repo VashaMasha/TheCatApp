@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Image,
@@ -7,9 +7,10 @@ import {
   Dimensions,
   Pressable,
 } from 'react-native';
-import {toggle_app_loading, add_to_favorites} from '../store/actionCreators/appActionCreators';
+import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
 import {useDispatch} from 'react-redux';
 import ScreenWrapper from '../theme/ScreenWrapper';
+import {getCats, addToFavorites} from '../api';
 
 type OneCatScreenProps = {
   route: any;
@@ -19,34 +20,64 @@ const width = Dimensions.get('window').width - 40;
 const OneCatScreen = ({route}: OneCatScreenProps) => {
   const dispatch = useDispatch();
   const {catItem} = route.params;
+  const [cat, setCat] = useState(catItem);
+
+  const getPhotoPressed = () => {
+    dispatch(toggle_app_loading(true));
+    getCats()
+      .then((res: any) => {
+        const randomCat = res[Math.floor(Math.random() * res.length)];
+        setCat(randomCat);
+      })
+      .catch((err: any) => console.log(err))
+      .finally(() => dispatch(toggle_app_loading(false)));
+  };
+
+  const addToFavoritesPressed = () => {
+    dispatch(toggle_app_loading(true));
+    addToFavorites({
+      image_id: cat.image.id,
+      sub_id: 'appUser12345',
+    })
+      .catch((err: any) => console.log(err))
+      .finally(() => dispatch(toggle_app_loading(false)));
+  };
 
   return (
     <ScreenWrapper showBackButton>
-      <View style={styles.imageContainer}>
-        <Image source={catItem.image} style={styles.image}></Image>
-      </View>
-      <View style={styles.dataContainer}>
-        <Text style={styles.breedText}>{catItem.name}</Text>
-        <Text
-          numberOfLines={2}
-          ellipsizeMode="tail"
-          style={styles.descriptionText}>
-          {catItem.description}
-        </Text>
-      </View>
-      <View style={styles.buttonsContainer}>
-        <Pressable style={[styles.button, {marginRight: 20}]}>
-          <Text style={styles.buttonText}>Другое фото</Text>
-        </Pressable>
-        <Pressable style={styles.button} onPress={() => dispatch(add_to_favorites(catItem.image))}>
-          <Text style={styles.buttonText}>Добавить в избранное</Text>
-        </Pressable>
+      <View style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image source={cat.image} style={styles.image}></Image>
+        </View>
+        <View style={styles.dataContainer}>
+          <Text style={styles.breedText}>{cat.name}</Text>
+          <Text
+            numberOfLines={2}
+            ellipsizeMode="tail"
+            style={styles.descriptionText}>
+            {cat.description}
+          </Text>
+        </View>
+        <View style={styles.buttonsContainer}>
+          <Pressable
+            style={[styles.button, {marginRight: 20}]}
+            onPress={getPhotoPressed}>
+            <Text style={styles.buttonText}>Показать другую кошку</Text>
+          </Pressable>
+          <Pressable style={styles.button} onPress={addToFavoritesPressed}>
+            <Text style={styles.buttonText}>Добавить в избранное</Text>
+          </Pressable>
+        </View>
       </View>
     </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginHorizontal: 20,
+  },
   dataContainer: {
     flex: 1,
     justifyContent: 'space-around',
@@ -87,6 +118,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   button: {
+    flex: 1,
     borderRadius: 12,
     borderColor: 'white',
     backgroundColor: 'white',
