@@ -10,7 +10,7 @@ import React from 'react';
 import {persistor, store} from './src/store/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import {Provider} from 'react-redux';
-import FullScreenLoader from './src/components/FullScreenLoader';
+import FullScreenLoader from './src/theme/FullScreenLoader';
 import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from './router/index';
 import MainStackNavigator from './router/MainStackNavigator';

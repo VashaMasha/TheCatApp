@@ -27,8 +27,8 @@ const BreedScreen = ({navigation}: BreedScreenProps) => {
       .finally(() => dispatch(toggle_app_loading(false)));
   }, []);
 
-  const onCatPress = (item: any) => {
-    navigation.navigate('OneCat');
+  const onCatPress = (catItem: any) => {
+    navigation.navigate('OneCat', {catItem});
   };
 
   return (
@@ -38,10 +38,10 @@ const BreedScreen = ({navigation}: BreedScreenProps) => {
       renderItem={({item}) => (
         <Pressable
           style={styles.itemContainer}
-          onPress={() => onCatPress(item)}>
+          onPress={() => onCatPress({image: item.image, name: item.name,  description: item.description})}>
           <Image source={item.image} style={styles.image}></Image>
           <View style={styles.textContainer}>
-            <Text style={styles.headerText}>{item.name}</Text>
+            <Text style={styles.breedText}>{item.name}</Text>
             <Text
               numberOfLines={2}
               ellipsizeMode="tail"
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
   },
-  headerText: {
+  breedText: {
     fontSize: 16,
     marginBottom: 10,
     fontWeight: 'bold',
