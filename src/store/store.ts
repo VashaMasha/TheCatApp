@@ -9,7 +9,7 @@ const middlewares = [thunk];
 const rootPersistConfig = {
   timeout: 0,
   key: 'root',
-  whitelist: ['app', 'photo'],
+  whitelist: ['app'],
   storage: AsyncStorage,
 };
 

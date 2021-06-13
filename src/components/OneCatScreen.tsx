@@ -7,13 +7,10 @@ import {
   Dimensions,
   Pressable,
 } from 'react-native';
-import {
-  toggle_app_loading,
-  add_to_favorites,
-} from '../store/actionCreators/appActionCreators';
+import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
 import {useDispatch} from 'react-redux';
 import ScreenWrapper from '../theme/ScreenWrapper';
-import {getCats} from '../api';
+import {getCats, addToFavorites} from '../api';
 
 type OneCatScreenProps = {
   route: any;
@@ -32,6 +29,16 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
         const randomCat = res[Math.floor(Math.random() * res.length)];
         setCat(randomCat);
       })
+      .catch((err: any) => console.log(err))
+      .finally(() => dispatch(toggle_app_loading(false)));
+  };
+
+  const addToFavoritesPressed = () => {
+    dispatch(toggle_app_loading(true));
+    addToFavorites({
+      image_id: cat.image.id,
+      sub_id: 'appUser12345',
+    })
       .catch((err: any) => console.log(err))
       .finally(() => dispatch(toggle_app_loading(false)));
   };
@@ -57,9 +64,7 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
             onPress={getPhotoPressed}>
             <Text style={styles.buttonText}>Показать другую кошку</Text>
           </Pressable>
-          <Pressable
-            style={styles.button}
-            onPress={() => dispatch(add_to_favorites(cat.image))}>
+          <Pressable style={styles.button} onPress={addToFavoritesPressed}>
             <Text style={styles.buttonText}>Добавить в избранное</Text>
           </Pressable>
         </View>
