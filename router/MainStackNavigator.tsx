@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/stack';
 import OneCatScreen from '../src/components/OneCatScreen';
 import BottomTabNavigator from './BottomTabNavigator';
+import BreedScreen from '../src/components/BreedsScreen';
 
 const Stack = createStackNavigator();
 const defaultOptions: StackNavigationOptions = {
@@ -14,7 +15,7 @@ const defaultOptions: StackNavigationOptions = {
 export const MainStackNavigator = () => {
   return (
     <Stack.Navigator screenOptions={defaultOptions}>
-      <Stack.Screen name="Breeds" component={BottomTabNavigator} />
+      <Stack.Screen name="Breeds" component={BreedScreen} />
       <Stack.Screen name="OneCat" component={OneCatScreen} />
     </Stack.Navigator>
   );

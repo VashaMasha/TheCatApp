@@ -3,7 +3,7 @@ import {
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import FavouritesScreen from '../src/components/BreedsScreen';
+import FavouritesScreen from '../src/components/FavouritesScreen';
 
 const Stack = createStackNavigator();
 const defaultOptions: StackNavigationOptions = {

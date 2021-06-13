@@ -7,6 +7,9 @@ import HartIconInactive from '../src/assers/images/hartIconInactive.png';
 import HartIconActive from '../src/assers/images/hartIconActive.png';
 import BreedScreen from '../src/components/BreedsScreen';
 import FavouritesScreen from '../src/components/FavouritesScreen';
+import OneCatScreen from '../src/components/OneCatScreen';
+import {MainStackNavigator} from '../router/MainStackNavigator';
+import {FavouritesStackNavigator} from '../router/FavouritesStackNavigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,8 +17,8 @@ function BottomTabs() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Breeds"
-        component={BreedScreen}
+        name="Main"
+        component={MainStackNavigator}
         options={() => ({
           title: '',
           tabBarIcon: ({focused}: any) =>
@@ -28,9 +31,9 @@ function BottomTabs() {
       />
       <Tab.Screen
         name="Favourites"
-        component={FavouritesScreen}
+        component={FavouritesStackNavigator}
         options={() => ({
-          title: '',
+          title: '111',
           tabBarIcon: ({focused}: any) =>
             focused ? (
               <Image source={HartIconActive} />

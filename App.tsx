@@ -14,13 +14,14 @@ import FullScreenLoader from './src/theme/FullScreenLoader';
 import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from './router/index';
 import MainStackNavigator from './router/MainStackNavigator';
+import BottomTabs from './router/BottomTabNavigator';
 
 const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationContainer ref={navigationRef}>
-          <MainStackNavigator />
+          <BottomTabs />
         </NavigationContainer>
       </PersistGate>
       <FullScreenLoader />
