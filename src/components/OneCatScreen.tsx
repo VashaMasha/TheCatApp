@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Image,
@@ -47,7 +47,11 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
     <ScreenWrapper showBackButton>
       <View style={styles.container}>
         <View style={styles.imageContainer}>
-          <Image source={cat.image} style={styles.image}></Image>
+          <Image
+            onLoadStart={() => dispatch(toggle_app_loading(true))}
+            onLoadEnd={() => dispatch(toggle_app_loading(false))}
+            source={cat.image}
+            style={styles.image}></Image>
         </View>
         <View style={styles.dataContainer}>
           <Text style={styles.breedText}>{cat.name}</Text>

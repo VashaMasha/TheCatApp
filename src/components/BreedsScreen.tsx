@@ -1,12 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  Pressable,
-} from 'react-native';
+import {View, FlatList, Image, StyleSheet, Text, Pressable} from 'react-native';
 import {getCats} from '..//api';
 import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
 import {useDispatch} from 'react-redux';
@@ -40,8 +33,14 @@ const BreedScreen = ({navigation}: BreedScreenProps) => {
         renderItem={({item}) => (
           <Pressable
             style={styles.itemContainer}
-            onPress={() => onCatPress({image: item.image, name: item.name,  description: item.description})}>
-            <Image source={item.image} style={styles.image}></Image>
+            onPress={() =>
+              onCatPress({
+                image: item.image,
+                name: item.name,
+                description: item.description,
+              })
+            }>
+            <Image source={item.image} style={styles.image} />
             <View style={styles.textContainer}>
               <Text style={styles.breedText}>{item.name}</Text>
               <Text

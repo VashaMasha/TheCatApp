@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, View, StyleSheet} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeIconActive from '../src/assers/images/homeIconActive.png';
 import HomeIconInactive from '../src/assers/images/homeIconInactive.png';
@@ -23,9 +23,14 @@ function BottomTabs() {
           title: '',
           tabBarIcon: ({focused}: any) =>
             focused ? (
-              <Image source={HomeIconActive} />
+              <View style={styles.activeTab}>
+                <Image source={HomeIconActive} />
+              </View>
             ) : (
-              <Image source={HomeIconInactive} />
+              <View
+                style={styles.inActiveTab}>
+                <Image source={HomeIconInactive} />
+              </View>
             ),
         })}
       />
@@ -33,17 +38,57 @@ function BottomTabs() {
         name="Favourites"
         component={FavouritesStackNavigator}
         options={() => ({
-          title: '111',
+          title: '',
           tabBarIcon: ({focused}: any) =>
             focused ? (
-              <Image source={HartIconActive} />
+              <View style={styles.activeTab}>
+                <Image source={HartIconActive} />
+              </View>
             ) : (
-              <Image source={HartIconInactive} />
+              <View style={styles.inActiveTab}>
+                <Image source={HartIconInactive} />
+              </View>
             ),
         })}
       />
     </Tab.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  activeTab: {
+    marginTop: 30,
+    padding: 10,
+    borderColor: 'white',
+    borderRadius: 26,
+    borderWidth: 1,
+    shadowColor: '#5533EA',
+    shadowOffset: {
+      width: -6,
+      height: -6,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+    backgroundColor: 'white',
+  },
+  inActiveTab: {
+    marginTop: 30,
+    padding: 10,
+    borderColor: 'white',
+    borderRadius: 26,
+    borderWidth: 1,
+    shadowColor: '#5533EA',
+    shadowOffset: {
+      width: 6,
+      height: 6,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+    backgroundColor: 'white',
+  },
+});
+
 
 export default BottomTabs;
