@@ -56,7 +56,7 @@ const BreedScreen = ({navigation}: BreedScreenProps) => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefreshHandler}
-            colors={'#5533EA'}
+            colors={['#5533EA']}
             tintColor={'#5533EA'}
           />
         }
@@ -70,7 +70,7 @@ const BreedScreen = ({navigation}: BreedScreenProps) => {
                 description: item.description,
               })
             }>
-            <Image source={item.image} style={styles.image} />
+            <Image source={{uri: item.image?.url}} style={styles.image} />
             <View style={styles.textContainer}>
               <Text style={styles.breedText}>{item.name}</Text>
               <Text
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 10,
     backgroundColor: 'white',
     marginHorizontal: 20,
   },

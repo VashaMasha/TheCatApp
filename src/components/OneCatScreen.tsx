@@ -6,6 +6,7 @@ import {
   Text,
   Dimensions,
   Pressable,
+  ScrollView,
 } from 'react-native';
 import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
 import {useDispatch} from 'react-redux';
@@ -45,23 +46,22 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
 
   return (
     <ScreenWrapper showBackButton>
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.imageContainer}>
           <Image
             onLoadStart={() => dispatch(toggle_app_loading(true))}
             onLoadEnd={() => dispatch(toggle_app_loading(false))}
-            source={cat.image}
-            style={styles.image}></Image>
+            source={{uri: cat.image?.url}}
+            style={styles.image}
+          />
         </View>
-        <View style={styles.dataContainer}>
-          <Text style={styles.breedText}>{cat.name}</Text>
-          <Text
-            numberOfLines={2}
-            ellipsizeMode="tail"
-            style={styles.descriptionText}>
-            {cat.description}
-          </Text>
-        </View>
+        <Text style={styles.breedText}>{cat.name}</Text>
+        <Text
+          numberOfLines={2}
+          ellipsizeMode="tail"
+          style={styles.descriptionText}>
+          {cat.description}
+        </Text>
         <View style={styles.buttonsContainer}>
           <Pressable
             style={[styles.button, {marginRight: 20}]}
@@ -72,19 +72,14 @@ const OneCatScreen = ({route}: OneCatScreenProps) => {
             <Text style={styles.buttonText}>Добавить в избранное</Text>
           </Pressable>
         </View>
-      </View>
+      </ScrollView>
     </ScreenWrapper>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     marginHorizontal: 20,
-  },
-  dataContainer: {
-    flex: 1,
-    justifyContent: 'space-around',
   },
   image: {
     alignSelf: 'center',
@@ -103,23 +98,25 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 10,
     backgroundColor: 'white',
   },
   breedText: {
+    marginTop: 30,
     fontSize: 16,
     marginBottom: 10,
     fontWeight: 'bold',
     alignSelf: 'flex-start',
   },
   descriptionText: {
+    marginTop: 30,
     fontSize: 14,
     marginBottom: 10,
-    alignSelf: 'flex-end',
   },
   buttonsContainer: {
     alignSelf: 'center',
     flexDirection: 'row',
+    marginTop: 30,
     marginBottom: 20,
   },
   button: {

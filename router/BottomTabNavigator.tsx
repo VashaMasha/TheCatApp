@@ -5,9 +5,6 @@ import HomeIconActive from '../src/assers/images/homeIconActive.png';
 import HomeIconInactive from '../src/assers/images/homeIconInactive.png';
 import HartIconInactive from '../src/assers/images/hartIconInactive.png';
 import HartIconActive from '../src/assers/images/hartIconActive.png';
-import BreedScreen from '../src/components/BreedsScreen';
-import FavouritesScreen from '../src/components/FavouritesScreen';
-import OneCatScreen from '../src/components/OneCatScreen';
 import {MainStackNavigator} from '../router/MainStackNavigator';
 import {FavouritesStackNavigator} from '../router/FavouritesStackNavigator';
 
@@ -15,7 +12,17 @@ const Tab = createBottomTabNavigator();
 
 function BottomTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{
+        style: {
+          height: 105,
+          backgroundColor: '#F5F5FA',
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
+          borderWidth: 1,
+          borderColor: '#F5F5FA',
+        },
+      }}>
       <Tab.Screen
         name="Main"
         component={MainStackNavigator}
@@ -27,8 +34,7 @@ function BottomTabs() {
                 <Image source={HomeIconActive} />
               </View>
             ) : (
-              <View
-                style={styles.inActiveTab}>
+              <View style={styles.inActiveTab}>
                 <Image source={HomeIconInactive} />
               </View>
             ),
@@ -57,10 +63,9 @@ function BottomTabs() {
 
 const styles = StyleSheet.create({
   activeTab: {
-    marginTop: 30,
     padding: 10,
     borderColor: 'white',
-    borderRadius: 26,
+    borderRadius: 20,
     borderWidth: 1,
     shadowColor: '#5533EA',
     shadowOffset: {
@@ -69,14 +74,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 10,
     backgroundColor: 'white',
   },
   inActiveTab: {
-    marginTop: 30,
     padding: 10,
     borderColor: 'white',
-    borderRadius: 26,
+    borderRadius: 20,
     borderWidth: 1,
     shadowColor: '#5533EA',
     shadowOffset: {
@@ -85,10 +89,9 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 10,
     backgroundColor: 'white',
   },
 });
-
 
 export default BottomTabs;

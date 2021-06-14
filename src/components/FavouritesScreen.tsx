@@ -54,13 +54,18 @@ const FavouritesScreen = () => {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefreshHandler}
-            colors={'#5533EA'}
+            colors={['#5533EA']}
             tintColor={'#5533EA'}
           />
         }
         renderItem={({item}) => (
           <View style={styles.itemContainer}>
-            <Image source={item.image} style={styles.image} />
+            <Image
+              source={{uri: item.image?.url}}
+              onLoadStart={() => dispatch(toggle_app_loading(true))}
+              onLoadEnd={() => dispatch(toggle_app_loading(false))}
+              style={styles.image}
+            />
           </View>
         )}
       />
@@ -82,7 +87,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 10,
     backgroundColor: 'white',
     marginHorizontal: 20,
   },
