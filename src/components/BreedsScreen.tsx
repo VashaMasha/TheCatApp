@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList, Image, StyleSheet, Text, Pressable} from 'react-native';
+import {
+  View,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  Pressable,
+  RefreshControl,
+} from 'react-native';
 import {getCats} from '..//api';
 import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
 import {useDispatch} from 'react-redux';
@@ -11,18 +19,32 @@ type BreedScreenProps = {
 
 const BreedScreen = ({navigation}: BreedScreenProps) => {
   const [catsArray, setCatsArray] = useState([]);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    getData();
+  }, []);
+
+  const onCatPress = (catItem: any) => {
+    navigation.navigate('OneCat', {catItem});
+  };
+
+  const getData = () => {
     dispatch(toggle_app_loading(true));
     getCats()
       .then((res: any) => setCatsArray(res))
       .catch((err: any) => console.log(err))
       .finally(() => dispatch(toggle_app_loading(false)));
-  }, []);
+  };
 
-  const onCatPress = (catItem: any) => {
-    navigation.navigate('OneCat', {catItem});
+  const onRefreshHandler = () => {
+    try {
+      setRefreshing(true);
+      getData();
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   return (
@@ -30,6 +52,14 @@ const BreedScreen = ({navigation}: BreedScreenProps) => {
       <FlatList
         data={catsArray}
         keyExtractor={item => item.id}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefreshHandler}
+            colors={'#5533EA'}
+            tintColor={'#5533EA'}
+          />
+        }
         renderItem={({item}) => (
           <Pressable
             style={styles.itemContainer}
