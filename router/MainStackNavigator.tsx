@@ -4,7 +4,6 @@ import {
   StackNavigationOptions,
 } from '@react-navigation/stack';
 import OneCatScreen from '../src/components/OneCatScreen';
-import BottomTabNavigator from './BottomTabNavigator';
 import BreedScreen from '../src/components/BreedsScreen';
 
 const Stack = createStackNavigator();

@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   Pressable,
+  RefreshControl,
 } from 'react-native';
 import {getCats} from '..//api';
 import {toggle_app_loading} from '../store/actionCreators/appActionCreators';
@@ -18,18 +19,32 @@ type BreedScreenProps = {
 
 const BreedScreen = ({navigation}: BreedScreenProps) => {
   const [catsArray, setCatsArray] = useState([]);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    getData();
+  }, []);
+
+  const onCatPress = (catItem: any) => {
+    navigation.navigate('OneCat', {catItem});
+  };
+
+  const getData = () => {
     dispatch(toggle_app_loading(true));
     getCats()
       .then((res: any) => setCatsArray(res))
       .catch((err: any) => console.log(err))
       .finally(() => dispatch(toggle_app_loading(false)));
-  }, []);
+  };
 
-  const onCatPress = (catItem: any) => {
-    navigation.navigate('OneCat', {catItem});
+  const onRefreshHandler = () => {
+    try {
+      setRefreshing(true);
+      getData();
+    } finally {
+      setRefreshing(false);
+    }
   };
 
   return (
@@ -37,11 +52,25 @@ const BreedScreen = ({navigation}: BreedScreenProps) => {
       <FlatList
         data={catsArray}
         keyExtractor={item => item.id}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefreshHandler}
+            colors={['#5533EA']}
+            tintColor={'#5533EA'}
+          />
+        }
         renderItem={({item}) => (
           <Pressable
             style={styles.itemContainer}
-            onPress={() => onCatPress({image: item.image, name: item.name,  description: item.description})}>
-            <Image source={item.image} style={styles.image}></Image>
+            onPress={() =>
+              onCatPress({
+                image: item.image,
+                name: item.name,
+                description: item.description,
+              })
+            }>
+            <Image source={{uri: item.image?.url}} style={styles.image} />
             <View style={styles.textContainer}>
               <Text style={styles.breedText}>{item.name}</Text>
               <Text
@@ -73,7 +102,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.3,
     shadowRadius: 6,
-    elevation: 5,
+    elevation: 10,
     backgroundColor: 'white',
     marginHorizontal: 20,
   },

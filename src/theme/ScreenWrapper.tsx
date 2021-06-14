@@ -17,7 +17,7 @@ const ScreenWrapper = ({...props}: ScreenWrapperProps) => {
         <Pressable
           style={styles.backButton}
           onPress={() => navigation.goBack()}>
-          <Image source={BackIcon} style={styles.icon}></Image>
+          <Image source={BackIcon} style={styles.icon} />
         </Pressable>
       )}
       {props.children}
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
   backButton: {
     height: 44,
     width: 44,
+    marginTop: 10,
     marginBottom: 10,
     borderColor: 'white',
     borderRadius: 30,
